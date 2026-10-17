@@ -1,0 +1,101 @@
+{
+  "second_highest": [
+    {
+      "n": 1000,
+      "orig_ms": 29.931541066616774,
+      "rew_ms": 0.05941605195403099,
+      "same": true
+    },
+    {
+      "n": 2000,
+      "orig_ms": 117.64912505168468,
+      "rew_ms": 0.11712498962879181,
+      "same": true
+    },
+    {
+      "n": 4000,
+      "orig_ms": 463.4358340408653,
+      "rew_ms": 0.23583299480378628,
+      "same": true
+    },
+    {
+      "n": 8000,
+      "orig_ms": 1878.5640830174088,
+      "rew_ms": 0.5006249994039536,
+      "same": true
+    },
+    {
+      "n": 16000,
+      "orig_ms": 7461.937875021249,
+      "rew_ms": 0.9694170439615846,
+      "same": true
+    }
+  ],
+  "decorr_selective": [
+    {
+      "n": 10000,
+      "orig_ms": 0.0032080570235848427,
+      "rew_ms": 1.7360409256070852,
+      "same": true
+    },
+    {
+      "n": 100000,
+      "orig_ms": 0.040790997445583344,
+      "rew_ms": 23.27587502077222,
+      "same": true
+    },
+    {
+      "n": 1000000,
+      "orig_ms": 0.43816701509058475,
+      "rew_ms": 288.7078750645742,
+      "same": true
+    }
+  ],
+  "count_bug": [
+    {
+      "n": 10000,
+      "orig_ms": 0.36399997770786285,
+      "rew_ms": 0.28983294032514095,
+      "orig_rows": 500,
+      "rew_rows": 0
+    },
+    {
+      "n": 100000,
+      "orig_ms": 1.673957915045321,
+      "rew_ms": 2.6059580268338323,
+      "orig_rows": 500,
+      "rew_rows": 0
+    },
+    {
+      "n": 1000000,
+      "orig_ms": 14.369708020240068,
+      "rew_ms": 24.957834044471383,
+      "orig_rows": 500,
+      "rew_rows": 0
+    }
+  ],
+  "second_highest_plan": {
+    "orig": [
+      "SEARCH a",
+      "SEARCH b"
+    ],
+    "rew": [
+      "SEARCH emp",
+      "SCALAR SUBQUERY 1",
+      "SEARCH emp"
+    ]
+  },
+  "decorr_plan": {
+    "orig": [
+      "SEARCH e USING INTEGER PRIMARY KEY (rowid=?)",
+      "CORRELATED SCALAR SUBQUERY 1",
+      "SEARCH e2 USING INDEX emp_dept (dept_id=?)"
+    ],
+    "rew": [
+      "CO-ROUTINE x",
+      "SCAN emp USING INDEX emp_dept",
+      "SEARCH e USING INTEGER PRIMARY KEY (rowid=?)",
+      "SCAN x"
+    ]
+  }
+}
